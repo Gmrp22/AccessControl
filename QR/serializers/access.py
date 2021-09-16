@@ -9,3 +9,4 @@ class AccessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Access
         fields = '__all__'
+
