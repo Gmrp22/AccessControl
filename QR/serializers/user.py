@@ -1,6 +1,6 @@
 from rest_framework import serializers
 # Model
-from models.user import User
+from QR.models.user import User
 
 
 class UserSerializer(serializers.ModelSerializer):

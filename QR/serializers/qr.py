@@ -1,6 +1,6 @@
 from rest_framework import serializers
 # Model
-from models.qr import QR
+from QR.models.qr import QR
 
 
 class QRSerializer(serializers.ModelSerializer):
