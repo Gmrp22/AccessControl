@@ -16,8 +16,8 @@ class Access(models.Model):
         return now
 
     date = models.DateField(default=date.today)
-    entry_time = models.TimeField(default=time)
-    departure_time = models.TimeField(default=time)
+    entry_time = models.TimeField(auto_now_add=True)
+    departure_time = models.TimeField(auto_now=True)
     status = models.CharField(choices=STATE, null=True,
                               blank=True, max_length=100)
     user = models.ForeignKey(
