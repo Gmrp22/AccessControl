@@ -61,6 +61,7 @@ class UserViewSet(viewsets.ModelViewSet):
             # Si no hay
             report.count = report.count + 1
             report.worked = report.worked + worked
+            report.extra = 0
             report.save()
 
     def extra_hoursClosed(self, report, worked):
@@ -76,6 +77,7 @@ class UserViewSet(viewsets.ModelViewSet):
             report.count = report.count + 1
             report.worked = report.worked + worked
             report.status = "Closed"
+            report.extra = 0
             report.save()
 
     def report_creation(self, worked, user):
