@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +25,8 @@ SECRET_KEY = 'django-insecure-q9b+3j7)$g23(tu9n=enuk04!xu(r68gqkl)+wt_k5rn&_+yjt
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+STATICFILES_DIRS = ["QR/templates/static/"]
 
 
 # Application definition
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'AccessControl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
