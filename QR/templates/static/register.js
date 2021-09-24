@@ -8,7 +8,8 @@ function submit(event) {
   event.preventDefault();
   let name = this.elements['name'].value;
   let carnet = this.elements['carnet'].value;
-
+  let email = this.elements['email'].value;
+  console.log('hola');
   (async () => {
     const rawResponse = await fetch(url, {
       method: 'POST',
@@ -18,7 +19,8 @@ function submit(event) {
       },
       body: JSON.stringify({
         "name": name,
-        "carnet": carnet
+        "carnet": carnet,
+        "email": email
       })
     });
     const content = await rawResponse.json();

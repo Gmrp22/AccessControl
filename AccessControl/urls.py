@@ -20,6 +20,6 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('QR/', include('QR.urls')),
-    path('register/', register)
+    path('register/', register),
+    path('reports/', reports)
 ]
-
