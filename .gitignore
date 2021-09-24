@@ -1,0 +1,4 @@
+QRTemp/
+__pycache__
+**/__pycache_/*.py
+db.sqlite3
