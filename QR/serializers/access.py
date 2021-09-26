@@ -9,4 +9,4 @@ class AccessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Access
         fields = '__all__'
-
+        depth = 1
