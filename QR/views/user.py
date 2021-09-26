@@ -25,12 +25,14 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             new_user = serializer.save()
-            img = qrcode.make(new_user.carnet)
-            f = open("QRTemp/output" + new_user.carnet + ".png", "wb")
+            img = qrcode.make(new_user.id)
+            id= str(new_user.id)
+            f = open("QRTemp/output" + id + ".png", "wb")
             img.save(f)
             f.close()
+            
             new_QR = QR(image="QRTemp/output" +
-                        new_user.carnet + ".png", user=new_user)
+                        id + ".png", user=new_user)
             new_QR.save()
             emailsend(new_user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -43,7 +45,8 @@ def emailsend(self):
     message = "Codigo de acceso para  " + self.name + "  Carnet" + self.carnet
     recepient = self.email
     sender = EMAIL_HOST_USER
-    image_path = "QRTemp/output" + self.carnet + ".png"
+    id= str(self.id)
+    image_path = "QRTemp/output" + id + ".png"
     image_name = Path(image_path).name
     html_message = f"""
     <!doctype html>
