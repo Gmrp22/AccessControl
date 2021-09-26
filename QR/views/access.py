@@ -9,6 +9,7 @@ from QR.models.report import Report
 from QR.serializers.access import AccessSerializer
 from time import time
 import datetime as dt
+from django.shortcuts import get_object_or_404
 
 
 class AccessViewSet(viewsets.ModelViewSet):
@@ -20,25 +21,23 @@ class AccessViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         """Manage access"""
-        serializer = AccessSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data['user']
-            flag = False
-            try:
-                access = Access.objects.filter(
-                    user=user).get(date=date.today())
-                if access.status == 'IN':
-                    access.status = 'OUT'
-                    access.save()
-                    flag = True
-                    self.daily_report(flag, user, access)
-                    return Response({"Acceso diario": "Salida"}, status=status.HTTP_201_CREATED)
-            except:
-                access_new = Access(status='IN', user=user)
-                access_new.save()
-                return Response({"Acceso diario": "Ingreso"}, status=status.HTTP_201_CREATED)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = request.data['user']
+        flag = False
+        usuario = User.objects.get(id=user)
+        try:
+            access = Access.objects.filter(
+                user=usuario).get(date=date.today())
+            if access.status == 'IN':
+                access.status = 'OUT'
+                access.save()
+                flag = True
+                self.daily_report(flag, usuario, access)
+                return Response({"Acceso diario": "Salida"}, status=status.HTTP_201_CREATED)
+        except:
+            access_new = Access(status='IN', user=usuario)
+            access_new.save()
+            return Response({"Acceso diario": "Ingreso"}, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
 
     def daily_report(self, flag, user, access):
         if flag == True:
